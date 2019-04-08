@@ -16,5 +16,11 @@ namespace Survey.Models
 
         [NotMapped]
         public bool Checkbox { get; set; }
+
+        public ProgrammingLanguage(string name, int vote)
+        {
+            Name = name;
+            Vote = vote;
+        }
     }
 }

@@ -33,10 +33,12 @@ namespace Survey
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<SurveyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SurveyConn")));
+
+            services.AddScoped<SeedingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService ss)
         {
             if (env.IsDevelopment())
             {
@@ -48,6 +50,7 @@ namespace Survey
                 app.UseHsts();
             }
 
+            ss.Seed();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
