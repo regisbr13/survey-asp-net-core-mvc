@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Survey.Data;
+using Survey.Services;
 
 namespace Survey
 {
@@ -34,6 +35,8 @@ namespace Survey
 
             services.AddDbContext<SurveyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SurveyConn")));
 
+            services.AddScoped<LanguageService>();
+
             services.AddScoped<SeedingService>();
         }
 
@@ -59,7 +62,7 @@ namespace Survey
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=ProgrammingLanguages}/{action=Index}/{id?}");
             });
         }
     }

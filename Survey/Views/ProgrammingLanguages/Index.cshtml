@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Survey.Models.ProgrammingLanguage>
+
+@{
+    ViewData["Title"] = "Linguagens de Programação";
+}
+
+
+<div class="col-lg-6 well">
+    @await Component.InvokeAsync("ProgrammingLanguage")
+</div>
