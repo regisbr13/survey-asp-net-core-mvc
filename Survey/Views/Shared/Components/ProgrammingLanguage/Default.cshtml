@@ -1,12 +1,12 @@
 ﻿@model List<Survey.Models.ProgrammingLanguage>
 
 
-<h4>Qual sua(s) linguagem(s) de programação favorita?</h4>
+<h3 class="text-info">Qual linguagem(s) de programação você domina?</h3>
 <hr />
 
 <form asp-controller="ProgrammingLanguages" asp-action="Selected" method="post" class="form-group">
     @{
-        for(int i = 0; i < Model.Count(); i++)
+        for (int i = 0; i < Model.Count(); i++)
         {
             <input asp-for="@Model[i].Checkbox" type="checkbox" />
             <label asp-for="@Model[i].Id">@Model[i].Name</label>
@@ -16,7 +16,8 @@
             <br />
         }
 
-        <input type="submit" value="Enviar" class="btn btn-success" />
-        }
+        <input type="submit" value="Votar" class="btn btn-success" />
+    }
 </form>
+
 

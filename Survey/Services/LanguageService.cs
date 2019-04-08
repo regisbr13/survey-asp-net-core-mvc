@@ -48,5 +48,17 @@ namespace Survey.Services
                 throw;
             }
         }
+
+        // Lista com linguagens e votos:
+        public List<Object> Objects()
+        {
+            List<Object> list = new List<object>();
+            foreach (var language in _context.Languages.ToList())
+            {
+                var obj = new { language.Name, language.Vote };
+                list.Add(obj);
+            }
+            return list;
+        }
     }
 }

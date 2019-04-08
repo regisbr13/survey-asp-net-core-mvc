@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Survey.Models;
+using Survey.Models.ViewModels;
 using Survey.Services;
 
 namespace Survey.Controllers
@@ -26,16 +27,35 @@ namespace Survey.Controllers
         [HttpPost]
         public async Task<IActionResult> Selected(List<ProgrammingLanguage> languages)
         {
-            foreach(var language in languages)
+            bool flag = true;
+            foreach (var language in languages)
             {
                 if (language.Checkbox)
                 {
                     ProgrammingLanguage obj = await _service.FindById(language.Id);
                     obj.Vote++;
                     await _service.UpdateAsync(obj);
+                    flag = false;
                 }
             }
+            if (flag)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Você deve escolher pelo menos uma opção"});
+            }
             return RedirectToAction(nameof(Index));
+        }
+
+        // Votos e linguagens em um Json
+        public JsonResult Graphic()
+        {
+            return Json(_service.Objects());
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel { Message = message };
+
+            return View(viewModel); 
         }
     }
 }
